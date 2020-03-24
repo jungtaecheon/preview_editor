@@ -431,7 +431,7 @@ include("./sample_code/table.html");?></textarea>
 			}
 
 			function clearEditor(){
-				//
+				alert("まだ機能していません。\n「Command」+「A」キーですべて選択してから削除してください。");
 			}
 
 			function copyTextArea(targetId){
