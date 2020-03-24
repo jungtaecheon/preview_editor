@@ -177,11 +177,17 @@
 			<input id="open_and_close_sample_code" class="btn-square-above-look" type="button" value="サンプルコードを開く" onclick="hideAndShowSampleCode()" />
 		</div>
 
-		<a href="./preview_editor_separate.php">
-			<h1>セパレートモードに行く</h1>
-		</a>
+		<div align="center">
+			<h1>まとめ編集モード</h1>
+			<a style="color:red;" href="./preview_editor_separate.php">
+				<h3>分割編集モードはこちら</h3>
+			</a>
+		</div>
 
 		<div id="help" class="help">
+			<input style="float: right;" type="button" value="X" onclick="hideAndShowHelp()" />
+			<br>
+
 			<h1 class="headDescription">ヘルプ</h1>
 
 			<hr>
@@ -206,13 +212,11 @@
 			<b>- ハイライト検索機能</b><br>
 			「Ctrl or Command」 + 「F」 を押すと、指定のキーワードにハイライトをつけることができます。<br>
 			「Ctrl or Command」 + 「G」 を押すと、ハイライトされたキーワードを順に検索することができます。
-
-			<hr>
-
-			<input id="open_and_close_help" class="btn-square-above-look" type="button" value="ヘルプを閉じる" onclick="hideAndShowHelp()" />
 		</div>
 
 		<div id="sample_code" class="help">
+			<input style="float: right;" type="button" value="X" onclick="hideAndShowSampleCode()" />
+			<br>
 			<h1 class="headDescription">サンプルコード</h1>
 
 			<hr>
@@ -233,23 +237,18 @@ include("./sample_code/table.html");?></textarea>
 			<textarea id="sample_code_2" rows="15" cols="80" readonly><?php include("./sample_code/timer.html");?></textarea>
 
 			<hr>
-
-			<input id="open_and_close_sample_code" class="btn-square-above-look" type="button" value="サンプルコードを閉じる" onclick="hideAndShowSampleCode()" />
 		</div>
 
 		<div class="editor">
 			<h1 class="headDescription">エディター</h1>
-			<input id="title_html" type="text" placeholder="保存するファイル名を入力してください" size="60">
-			<input class="btn-square-above-look" type="button" value="ソースコードをダウンロードする" onclick="downloadfile()">
-
 			<input id="clear_editor" class="btn-square-above-look" type="button" value="すべてクリア" onclick="clearEditor()" />
 			<textarea id="editor_html" class="CodeMirror-empty" placeholder="HTMLを作成してください。" rows="30" cols="50"></textarea>
 		</div>
 
 		<div class="preview">
 			<h1 class="headDescription">プレビュー</h1>
-			<br>
-			<br>
+			<input id="title_html" type="text" placeholder="保存するファイル名を入力してください" size="50">
+			<input class="btn-square-above-look" type="button" value="ソースコードをダウンロード" onclick="downloadfile()">
 			<div id="livepreview">
 				<iframe id="livepreview_frame" width="100%" height="800px"></iframe>
 			</div>
@@ -325,7 +324,7 @@ include("./sample_code/table.html");?></textarea>
 				},
 				theme: 'material'
 			});
-			sampleCode1.setSize("100%", "60px");
+			sampleCode1.setSize("100%", "80px");
 
 			var sampleCode2 = CodeMirror.fromTextArea(document.getElementById('sample_code_2'), {
 				mode: 'htmlmixed',
@@ -344,7 +343,7 @@ include("./sample_code/table.html");?></textarea>
 				},
 				theme: 'material'
 			});
-			sampleCode2.setSize("100%", "60px");
+			sampleCode2.setSize("100%", "80px");
 
 			$(function() {
 				// JQuery

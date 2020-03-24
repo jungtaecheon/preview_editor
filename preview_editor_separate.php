@@ -167,9 +167,9 @@
 			.preview{
 				z-index: -1;
 				position: fixed;
-				top: 50%;
+				bottom: 10%;
 				right: 5%;
-				transform: translate(5%, -50%);
+				transform: translate(5%, 10%);
 				width: 45%;
 			}
 
@@ -182,11 +182,17 @@
 			<input id="open_and_close_sample_code" class="btn-square-above-look" type="button" value="サンプルコードを開く" onclick="hideAndShowSampleCode()" />
 		</div>
 
-		<a href="./preview_editor_full.php">
-			<h1>フルモードに行く</h1>
-		</a>
+		<div align="center">
+			<h1>分割編集モード</h1>
+			<a style="color:red;" href="./preview_editor_full.php">
+				<h3>まとめ編集モードはこちら</h3>
+			</a>
+		</div>
 
 		<div id="help" class="help">
+			<input style="float: right;" type="button" value="X" onclick="hideAndShow()" />
+			<br>
+
 			<h1 class="headDescription">ヘルプ</h1>
 
 			<hr>
@@ -211,10 +217,6 @@
 			<b>- ハイライト検索機能</b><br>
 			「Ctrl or Command」 + 「F」 を押すと、指定のキーワードにハイライトをつけることができます。<br>
 			「Ctrl or Command」 + 「G」 を押すと、ハイライトされたキーワードを順に検索することができます。
-
-			<hr>
-
-			<input id="open_and_close_help" class="btn-square-above-look" type="button" value="ヘルプを閉じる" onclick="hideAndShow()" />
 		</div>
 
 		<div class="editor">
@@ -255,8 +257,7 @@
 		<div class="preview">
 			<h1 class="headDescription">プレビュー</h1>
 			<input id="title_html" type="text" placeholder="保存するファイル名（タイトル）を入力してください" size="60">
-			<input class="btn-square-above-look" type="button" value="ソースコードをダウンロードする" onclick="downloadfile()">
-			<hr>
+			<input class="btn-square-above-look" type="button" value="ソースコードをダウンロード" onclick="downloadfile()">
 			<div id="livepreview">
 				<iframe id="livepreview_frame" width="100%" height="300px"></iframe>
 			</div>
@@ -368,7 +369,7 @@
 				},
 				theme: 'material'
 			});
-			sampleCode1.setSize("100%", "50px");
+			sampleCode1.setSize("100%", "80px");
 
 			var sampleCode2 = CodeMirror.fromTextArea(document.getElementById('sample_code_2'), {
 				mode: 'text/css',
@@ -387,7 +388,7 @@
 				},
 				theme: 'material'
 			});
-			sampleCode2.setSize("100%", "50px");
+			sampleCode2.setSize("100%", "80px");
 
 			var sampleCode3 = CodeMirror.fromTextArea(document.getElementById('sample_code_3'), {
 				mode: 'javascript',
@@ -406,7 +407,7 @@
 				},
 				theme: 'material'
 			});
-			sampleCode3.setSize("100%", "50px");
+			sampleCode3.setSize("100%", "80px");
 
 			$(function() {
 			// JQuery
