@@ -1,1 +1,1 @@
-<?php include_once("preview_editor_full.html"); ?>
+<?php include_once("preview_editor_full.php"); ?>

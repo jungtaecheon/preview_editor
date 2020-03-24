@@ -158,39 +158,36 @@
 			}
 
 			.help {
-				float: left;
-				width: 100%;
-				height: 100%;
+				font-size: 85%;
+				background: #EEEEEE;
+				z-index: 100;
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 45%;
 			}
 
-			.helpButton {
-				float: left;
-				width: 100%;
-				height: 100%;
-			}
 		</style>
 	</head>
 
 	<body>
-		<div>
-			<a href="./preview_editor_separate.html">セパレートモードに行く</a>
-		</div>
-
-		<hr>
-
 		<div class="helpButton">
-			<input id="open_and_close_help" class="btn-square-above-look" type="button" value="チュートリアルを開く" onclick="hideAndShow()" />
+			<input id="open_and_close_help" class="btn-square-above-look" type="button" value="ヘルプを開く" onclick="hideAndShowHelp()" />
+			<input id="open_and_close_sample_code" class="btn-square-above-look" type="button" value="サンプルコードを開く" onclick="hideAndShowSampleCode()" />
 		</div>
+
+		<a href="./preview_editor_separate.php">
+			<h1>セパレートモードに行く</h1>
+		</a>
 
 		<div id="help" class="help">
-			<h1 class="headDescription">チュートリアル</h1>
+			<h1 class="headDescription">ヘルプ</h1>
 
 			<hr>
 
 			<b>- 自動補完機能</b><br>
 			「Ctrl or Command」 + 「スペースキー」 を押すと、自動補完機能を使えます。<br>
-			<input type="text" size="20" value="<a></" readonly><br>
-			↑をそのままコピーしエディターに貼ってから補完機能を試してみましょう。
 
 			<hr>
 
@@ -207,174 +204,45 @@
 			<hr>
 
 			<b>- ハイライト検索機能</b><br>
-			「Ctrl or Command」 + 「F」 を押すと、検索欄が表示されるのでキーワードを入力しEnterを押してください。
+			「Ctrl or Command」 + 「F」 を押すと、指定のキーワードにハイライトをつけることができます。<br>
+			「Ctrl or Command」 + 「G」 を押すと、ハイライトされたキーワードを順に検索することができます。
 
 			<hr>
 
-			<b>- サンプルコード１</b><br>
-			こちらのソースコードをコピーしてエディターに貼ってみよう。<br>
-			<textarea id="sample_code_1" rows="15" cols="80" readonly>
-<!DOCTYPE html>
-<html lang="ja">
-	<head>
-		<meta charset="UTF-8">
-		<title>Table Sample</title>
-		<style type="text/css">
-		</style>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.slim.min.js"></script>
-	</head>
+			<input id="open_and_close_help" class="btn-square-above-look" type="button" value="ヘルプを閉じる" onclick="hideAndShowHelp()" />
+		</div>
 
-	<body>
-		<p id="test_id" align="center">サンプル表</p>
-		<table border="1" align="center">
-			<tr>
-				<th>名前</th>
-				<th>年齢</th>
-				<th>あいさつ</th>
-			</tr>
-			<tr>
-				<td>森田</td>
-				<td>9</td>
-				<td>
-					<input type="button" value="こんにちは" onclick="hello('森田')">
-				</td>
-			</tr>
-			<tr>
-				<td>佐藤</td>
-				<td>11</td>
-				<td>
-					<input type="button" value="こんにちは" onclick="hello('佐藤')">
-				</td>
-			</tr>
-		</table>
-
-		<script>
-			function hello(name){
-				alert("私の名前は" + name + "です。");
-			}
-		</script>
-	</body>
-</html></textarea>
+		<div id="sample_code" class="help">
+			<h1 class="headDescription">サンプルコード</h1>
 
 			<hr>
 
-			<b>- サンプルコード２</b><br>
-			こちらのソースコードをコピーしてエディターに貼ってみよう。<br>
-			<textarea id="sample_code_2" rows="15" cols="80" readonly>
-<!DOCTYPE html>
-<html lang="ja">
-	<head>
-		<meta charset="UTF-8">
-		<title>Monster Timer</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.slim.min.js"></script>
-	</head>
-
-	<body>
-		<h1>Monster Timer</h1>
-		<p>モンスターが３の倍数で爆発するよ</p>
-
-		<img width="600" height="300" id="img_id" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSlUZ4nd8HkVNeT1lOvsPc5gZXziBTnHlfRdha6zm-nZSgIE-Dl" alt="TestLogo">
-
-		<h1 id="msg">0:00:00</h1>
-
-		<input type="button" id="start_button" value="START" onclick="startOrStopCount()">
-		<input type="button" id="reset_button" value="RESET" onclick="resetCount()">
-
-		<p id="test_p">START ボタンを押してね</p>
-
-		<script>
-			// countUP関数
-			var count_milli = 0;
-			var count_sec = 0;
-			var count_min = 0;
-			function countUp() {
-				// jquery使ってみた。（DOMを読み込み終わった時点で実行）
-				$(function(){
-					// 秒数の整形
-					var count_sec_str = count_sec < 10 ? "0"+count_sec : count_sec;
-					var count_milli_str = count_milli < 10 ? "0"+count_milli : count_milli;
-
-					// カウント表示
-					$('#msg').html(count_min + ':' + count_sec_str + ':' + count_milli_str);
-
-					// 表示後、ミリ秒カウントアップ
-					count_milli++;
-
-					if (count_milli >= 100) {
-					// １秒ごとの処理
-					count_milli = 0;
-					count_sec++;
-
-					if ( count_sec%3 == 0) {
-						$('#img_id').attr('src', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRkAEl1ugCszfDV5zDgtiO5ZkXWP5Pvoep15nestDpE3Xq9Vyyl');
-					} else {
-						$('#img_id').attr('src', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSlUZ4nd8HkVNeT1lOvsPc5gZXziBTnHlfRdha6zm-nZSgIE-Dl');
-					}
-
-					if (count_sec >= 60){
-						// １分
-						count_sec = 0;
-						count_min++;
-					}
-					}
-				});
-			}
-
-			// ボタン押下関数
-			var isStop = true;
-			var timeId;
-			function startOrStopCount() {
-				if (isStop){
-					timeId = setInterval("countUp()",10);
-					// alert("タイマーをスタートします。");
-					document.getElementById("test_p").innerHTML = "タイマー進行中...";
-					document.getElementById("start_button").value = "STOP";
-					isStop = false;
-				} else {
-					clearInterval(timeId);
-					// alert("タイマーをストップします。");
-					document.getElementById("test_p").innerHTML = "タイマーをストップしました";
-					document.getElementById("start_button").value = "START";
-					isStop = true;
-				}
-			}
-
-			function resetCount() {
-				var confirm_boolean = confirm("本当にタイマーをリセットしますか。");
-				if (confirm_boolean) {
-					// フラグを初期化
-					isStop = true;
-
-					// カウンターを初期化
-					count_milli = 0;
-					count_sec = 0;
-					count_min = 0;
-
-					clearInterval(timeId);
-					document.getElementById("test_p").innerHTML = "タイマーをリセットしました";
-					document.getElementById("start_button").value = "START";
-
-					$('#img_id').attr('src', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSlUZ4nd8HkVNeT1lOvsPc5gZXziBTnHlfRdha6zm-nZSgIE-Dl');
-					// カウント表示
-					$('#msg').html('0:00:00');
-				}
-			}
-		</script>
-	</body>
-</html></textarea>
+			<b>- テーブルを作ってみよう</b><br>
+			こちらのソースコードをコピーしてエディターに貼ってみよう。
+			<br>
+			<input type="button" value="コピー" onclick="copyTextArea('sample_code_1')" class="btn-square-above-look">
+			<textarea id="sample_code_1" rows="15" cols="80" readonly><?php
+include("./sample_code/table.html");?></textarea>
 
 			<hr>
 
-			<input id="open_and_close_help" class="btn-square-above-look" type="button" value="チュートリアルを閉じる" onclick="hideAndShow()" />
+			<b>- タイマーを作ってみよう</b><br>
+			こちらのソースコードをコピーしてエディターに貼ってみよう。
+			<br>
+			<input type="button" value="コピー" onclick="copyTextArea('sample_code_2')" class="btn-square-above-look">
+			<textarea id="sample_code_2" rows="15" cols="80" readonly><?php include("./sample_code/timer.html");?></textarea>
 
+			<hr>
+
+			<input id="open_and_close_sample_code" class="btn-square-above-look" type="button" value="サンプルコードを閉じる" onclick="hideAndShowSampleCode()" />
 		</div>
 
 		<div class="editor">
 			<h1 class="headDescription">エディター</h1>
 			<input id="title_html" type="text" placeholder="保存するファイル名を入力してください" size="60">
-			<input class="btn-square-above-look" type="button" value="ダウンロード" onclick="downloadfile()">
-			<br>
-			<br>
+			<input class="btn-square-above-look" type="button" value="ソースコードをダウンロードする" onclick="downloadfile()">
+
+			<input id="clear_editor" class="btn-square-above-look" type="button" value="すべてクリア" onclick="clearEditor()" />
 			<textarea id="editor_html" class="CodeMirror-empty" placeholder="HTMLを作成してください。" rows="30" cols="50"></textarea>
 		</div>
 
@@ -457,7 +325,7 @@
 				},
 				theme: 'material'
 			});
-			sampleCode1.setSize("50%", "200px");
+			sampleCode1.setSize("100%", "60px");
 
 			var sampleCode2 = CodeMirror.fromTextArea(document.getElementById('sample_code_2'), {
 				mode: 'htmlmixed',
@@ -476,13 +344,7 @@
 				},
 				theme: 'material'
 			});
-			sampleCode2.setSize("50%", "200px");
-
-
-			function updateTextArea() {
-				// エディターの中身をtextAreaに同期させる。
-				htmlEitor.save();
-			}
+			sampleCode2.setSize("100%", "60px");
 
 			$(function() {
 				// JQuery
@@ -503,6 +365,11 @@
 					iframe.src = URL.createObjectURL(blob);
 				});
 			});
+
+			function updateTextArea() {
+				// エディターの中身をtextAreaに同期させる。
+				htmlEitor.save();
+			}
 
 			function getSpaceByHierarchy(level) {
 				var space = "";
@@ -526,7 +393,7 @@
 			}
 
 			function downloadfile() {
-				if (!confirm("作成したHTMLファイルをダウンロードしますか？")) return;
+				if (!confirm("作成したHTMLファイルをローカルにダウンロードしますか？")) return;
 				var title = document.getElementById("title_html").value;
 				var blob = createHtmlBlob();
 
@@ -540,16 +407,40 @@
 
 
 			document.getElementById("help").style.display = "none";
-
-			function hideAndShow() {
+			function hideAndShowHelp() {
 				const help = document.getElementById("help");
 				if (help.style.display == "block") {
-					document.getElementById("open_and_close_help").value = "チュートリアルを開く";
+					document.getElementById("open_and_close_help").value = "ヘルプを開く";
 					help.style.display = "none";
 				} else {
-					document.getElementById("open_and_close_help").value = "チュートリアルを閉じる";
+					document.getElementById("open_and_close_help").value = "ヘルプを閉じる";
 					help.style.display = "block";
 				}
+			}
+
+			document.getElementById("sample_code").style.display = "none";
+			function hideAndShowSampleCode() {
+				const sample_code = document.getElementById("sample_code");
+				if (sample_code.style.display == "block") {
+					document.getElementById("open_and_close_sample_code").value = "サンプルコードを開く";
+					sample_code.style.display = "none";
+				} else {
+					document.getElementById("open_and_close_sample_code").value = "サンプルコードを閉じる";
+					sample_code.style.display = "block";
+				}
+			}
+
+			function clearEditor(){
+				//
+			}
+
+			function copyTextArea(targetId){
+				var targetTextArea = document.getElementById(targetId);
+				targetTextArea.style.display = "block";
+				targetTextArea.select();
+				document.execCommand("copy");
+				targetTextArea.style.display = "none";
+				alert("コピーしました！\nこのまま貼り付けができます。");
 			}
 		</script>
 	</body>

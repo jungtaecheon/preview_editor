@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>Table Sample</title>
+		<style type="text/css">
+			table, td, th {
+				border: 1px blue solid;
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			#test_id {
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<p id="test_id">サンプル表</p>
+		<table>
+			<tr>
+				<th>名前</th>
+				<th>年齢</th>
+				<th>あいさつ</th>
+			</tr>
+			<tr>
+				<td>森田</td>
+				<td>9</td>
+				<td>
+					<input type="button" value="こんにちは" onclick="hello('森田','9')">
+				</td>
+			</tr>
+			<tr>
+				<td>佐藤</td>
+				<td>11</td>
+				<td>
+					<input type="button" value="こんにちは" onclick="hello('佐藤','11')">
+				</td>
+			</tr>
+		</table>
+
+		<script>
+			function hello(name,age){
+				alert("私の名前は" + name + "と言います。\n" + age + "才です。");
+			}
+		</script>
+	</body>
+</html>

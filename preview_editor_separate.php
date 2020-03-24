@@ -145,12 +145,27 @@
 				color: #999;
 			}
 
+			.help {
+				font-size: 85%;
+				background: #EEEEEE;
+				z-index: 100;
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 45%;
+			}
+
+			.sample_code {
+				background: #EEEEEE;
+			}
 
 			.editor{
 				float: left;
 				width: 49%;
 			}
 			.preview{
+				z-index: -1;
 				position: fixed;
 				top: 50%;
 				right: 5%;
@@ -162,68 +177,75 @@
 	</head>
 
 	<body>
-		<div>
-			<a href="./preview_editor_full.html">フルモードに行く</a>
+		<div class="helpButton">
+			<input id="open_and_close_help" class="btn-square-above-look" type="button" value="ヘルプを開く" onclick="hideAndShow()" />
+			<input id="open_and_close_sample_code" class="btn-square-above-look" type="button" value="サンプルコードを開く" onclick="hideAndShowSampleCode()" />
 		</div>
 
-		<hr>
+		<a href="./preview_editor_full.php">
+			<h1>フルモードに行く</h1>
+		</a>
+
+		<div id="help" class="help">
+			<h1 class="headDescription">ヘルプ</h1>
+
+			<hr>
+
+			<b>- 自動補完機能</b><br>
+			「Ctrl or Command」 + 「スペースキー」 を押すと、自動補完機能を使えます。<br>
+
+			<hr>
+
+			<b>- 自動インデント機能</b><br>
+			「Shift」 + 「Tab」 を押すと、選択された部分のインデントが自動で修正されます。<br>
+			「Ctrl or Command」 + 「A」 を押すと、全体選択できるので全体のインデントを修正するときに使ってみよう。<br>
+
+			<hr>
+
+			<b>- タグのジャンプ機能</b><br>
+			片方のタグにカーソルをあてたあと<br>
+			「Ctrl or Command」 + 「J」 を押すと、もう片方のタグにジャンプします。
+
+			<hr>
+
+			<b>- ハイライト検索機能</b><br>
+			「Ctrl or Command」 + 「F」 を押すと、指定のキーワードにハイライトをつけることができます。<br>
+			「Ctrl or Command」 + 「G」 を押すと、ハイライトされたキーワードを順に検索することができます。
+
+			<hr>
+
+			<input id="open_and_close_help" class="btn-square-above-look" type="button" value="ヘルプを閉じる" onclick="hideAndShow()" />
+		</div>
 
 		<div class="editor">
 			<h1 class="headDescription">HTML</h1>
-			サンプルコード
-			<textarea id="sample_code_1" rows="15" cols="50" readonly>
-<div id="test_div">
-	<p>サンプル表</p>
-	<table>
-	<tr>
-		<th>名前</th>
-		<th>年齢</th>
-		<th>あいさつ</th>
-	</tr>
-	<tr>
-		<td>森田</td>
-		<td>9</td>
-		<td>
-			<input type="button" value="こんにちは" onclick="hello('森田')">
-		</td>
-	</tr>
-	<tr>
-		<td>佐藤</td>
-		<td>11</td>
-		<td>
-			<input type="button" value="こんにちは" onclick="hello('佐藤')">
-		</td>
-	</tr>
-	</table>
-</div></textarea>
+			<div class="sample_code">
+				サンプルコード
+				<input type="button" value="コピー" onclick="copyTextArea('sample_code_1')" class="btn-square-above-look">
+				<textarea id="sample_code_1" rows="15" cols="50" readonly><?php include("./sample_code/table_body.html");?></textarea>
+			</div>
 
 			<hr>
 
 			<textarea id="editor_html" class="CodeMirror-empty" placeholder="<body>タグの中身を作成してください。" rows="30" cols="50"></textarea>
 
 			<h1 class="headDescription">css</h1>
-			サンプルコード
-			<textarea id="sample_code_2" rows="15" cols="50" readonly>
-table, td, th {
-	border: 1px blue solid;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-#test_div {
-	text-align: center;
-}</textarea>
+			<div class="sample_code">
+				サンプルコード
+				<input type="button" value="コピー" onclick="copyTextArea('sample_code_2')" class="btn-square-above-look">
+				<textarea id="sample_code_2" rows="15" cols="50" readonly><?php include("./sample_code/table_style_sheet.css");?></textarea>
+			</div>
 
 			<hr>
 
 			<textarea id="editor_css" class="CodeMirror-empty" placeholder="スタイルシート(css)の中身を生成してください。" rows="30" cols="50"></textarea>
 
 			<h1 class="headDescription">javascript</h1>
-			サンプルコード
-			<textarea id="sample_code_3" rows="15" cols="50" readonly>
-function hello(name){
-	alert("私の名前は" + name + "です。");
-}</textarea>
+				<div class="sample_code">
+				サンプルコード
+				<input type="button" value="コピー" onclick="copyTextArea('sample_code_3')" class="btn-square-above-look">
+				<textarea id="sample_code_3" rows="15" cols="50" readonly><?php include("./sample_code/table_javascript.js");?></textarea>
+			</div>
 
 			<hr>
 
@@ -233,10 +255,10 @@ function hello(name){
 		<div class="preview">
 			<h1 class="headDescription">プレビュー</h1>
 			<input id="title_html" type="text" placeholder="保存するファイル名（タイトル）を入力してください" size="60">
-			<input class="btn-square-above-look" type="button" value="ダウンロード" onclick="downloadfile()">
+			<input class="btn-square-above-look" type="button" value="ソースコードをダウンロードする" onclick="downloadfile()">
 			<hr>
 			<div id="livepreview">
-				<iframe id="livepreview_frame" width="100%" height="350px"></iframe>
+				<iframe id="livepreview_frame" width="100%" height="300px"></iframe>
 			</div>
 		</div>
 
@@ -464,7 +486,7 @@ function hello(name){
 			}
 
 			function downloadfile(){
-				if(!confirm("作成したHTMLファイルをダウンロードしますか？")) return;
+				if(!confirm("作成したHTMLファイルをローカルにダウンロードしますか？")) return;
 				var title = document.getElementById("title_html").value;
 				var blob = createHtmlBlob();
 
@@ -474,6 +496,48 @@ function hello(name){
 				a.target = '_blank';
 				a.download = title + '.html';
 				a.click();
+			}
+
+			document.getElementById("help").style.display = "none";
+			function hideAndShow() {
+				const help = document.getElementById("help");
+				if (help.style.display == "block") {
+					document.getElementById("open_and_close_help").value = "ヘルプを開く";
+					help.style.display = "none";
+				} else {
+					document.getElementById("open_and_close_help").value = "ヘルプを閉じる";
+					help.style.display = "block";
+				}
+			}
+
+
+			const sample_code_class = document.getElementsByClassName("sample_code");
+			for(var i = 0; i < sample_code_class.length; i++){
+				sample_code_class[i].style.display = "none";
+			}
+			function hideAndShowSampleCode() {
+				const sample_code_class = document.getElementsByClassName("sample_code");
+				if (sample_code_class[0].style.display == "block") {
+					document.getElementById("open_and_close_sample_code").value = "サンプルコードを開く";
+					for(var i = 0; i < sample_code_class.length; i++){
+						sample_code_class[i].style.display = "none";
+					}
+
+				} else {
+					document.getElementById("open_and_close_sample_code").value = "サンプルコードを閉じる";
+					for(var i = 0; i < sample_code_class.length; i++){
+						sample_code_class[i].style.display = "block";
+					}
+				}
+			}
+
+			function copyTextArea(targetId){
+				var targetTextArea = document.getElementById(targetId);
+				targetTextArea.style.display = "block";
+				targetTextArea.select();
+				document.execCommand("copy");
+				targetTextArea.style.display = "none";
+				alert("コピーしました！\nこのまま貼り付けができます。");
 			}
 		</script>
 

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>Monster Timer</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.slim.min.js"></script>
+	</head>
+
+	<body>
+		<h1>Monster Timer</h1>
+		<p>モンスターが３の倍数で爆発するよ</p>
+
+		<img width="600" height="300" id="img_id" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSlUZ4nd8HkVNeT1lOvsPc5gZXziBTnHlfRdha6zm-nZSgIE-Dl" alt="TestLogo">
+
+		<h1 id="msg">0:00:00</h1>
+
+		<input type="button" id="start_button" value="START" onclick="startOrStopCount()">
+		<input type="button" id="reset_button" value="RESET" onclick="resetCount()">
+
+		<p id="test_p">START ボタンを押してね</p>
+
+		<script>
+			// countUP関数
+			var count_milli = 0;
+			var count_sec = 0;
+			var count_min = 0;
+			function countUp() {
+				// jquery使ってみた。（DOMを読み込み終わった時点で実行）
+				$(function(){
+					// 秒数の整形
+					var count_sec_str = count_sec < 10 ? "0"+count_sec : count_sec;
+					var count_milli_str = count_milli < 10 ? "0"+count_milli : count_milli;
+
+					// カウント表示
+					$('#msg').html(count_min + ':' + count_sec_str + ':' + count_milli_str);
+
+					// 表示後、ミリ秒カウントアップ
+					count_milli++;
+
+					if (count_milli >= 100) {
+					// １秒ごとの処理
+					count_milli = 0;
+					count_sec++;
+
+					if ( count_sec%3 == 0) {
+						$('#img_id').attr('src', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRkAEl1ugCszfDV5zDgtiO5ZkXWP5Pvoep15nestDpE3Xq9Vyyl');
+					} else {
+						$('#img_id').attr('src', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSlUZ4nd8HkVNeT1lOvsPc5gZXziBTnHlfRdha6zm-nZSgIE-Dl');
+					}
+
+					if (count_sec >= 60){
+						// １分
+						count_sec = 0;
+						count_min++;
+					}
+					}
+				});
+			}
+
+			// ボタン押下関数
+			var isStop = true;
+			var timeId;
+			function startOrStopCount() {
+				if (isStop){
+					timeId = setInterval("countUp()",10);
+					// alert("タイマーをスタートします。");
+					document.getElementById("test_p").innerHTML = "タイマー進行中...";
+					document.getElementById("start_button").value = "STOP";
+					isStop = false;
+				} else {
+					clearInterval(timeId);
+					// alert("タイマーをストップします。");
+					document.getElementById("test_p").innerHTML = "タイマーをストップしました";
+					document.getElementById("start_button").value = "START";
+					isStop = true;
+				}
+			}
+
+			function resetCount() {
+				var confirm_boolean = confirm("本当にタイマーをリセットしますか。");
+				if (confirm_boolean) {
+					// フラグを初期化
+					isStop = true;
+
+					// カウンターを初期化
+					count_milli = 0;
+					count_sec = 0;
+					count_min = 0;
+
+					clearInterval(timeId);
+					document.getElementById("test_p").innerHTML = "タイマーをリセットしました";
+					document.getElementById("start_button").value = "START";
+
+					$('#img_id').attr('src', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSlUZ4nd8HkVNeT1lOvsPc5gZXziBTnHlfRdha6zm-nZSgIE-Dl');
+					// カウント表示
+					$('#msg').html('0:00:00');
+				}
+			}
+		</script>
+	</body>
+</html>
