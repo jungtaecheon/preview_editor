@@ -53,7 +53,7 @@
 		<style type="text/css">
 			/** タイトルのおしゃれ括弧 */
 			.headDescription {
-				font-size: 150%;
+				font-size: 100%;
 				position: relative;
 				padding: 0.25em 1em;
 				border-top: solid 2px black;
@@ -123,7 +123,7 @@
 			/** コードミラーの上書き */
 			.CodeMirror {
 				font-family: Monaco, 'Andale Mono', 'Lucida Console', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
-				font-size: 11pt;
+				font-size: 10pt;
 				height: 100%;
 			}
 
@@ -145,18 +145,6 @@
 				color: #999;
 			}
 
-
-			.editor {
-				float: left;
-				width: 49.5%;
-
-			}
-
-			.preview {
-				float: right;
-				width: 49.5%;
-			}
-
 			.help {
 				font-size: 85%;
 				background: #EEEEEE;
@@ -168,24 +156,41 @@
 				width: 45%;
 			}
 
+			.sample_code {
+				background: #EEEEEE;
+			}
+
+			.editor{
+				float: left;
+				width: 49%;
+			}
+			.preview{
+				z-index: -1;
+				position: fixed;
+				bottom: 10%;
+				right: 5%;
+				transform: translate(5%, 10%);
+				width: 45%;
+			}
+
 		</style>
 	</head>
 
 	<body>
 		<div class="helpButton">
-			<input id="open_and_close_help" class="btn-square-above-look" type="button" value="ヘルプを開く" onclick="hideAndShowHelp()" />
+			<input id="open_and_close_help" class="btn-square-above-look" type="button" value="ヘルプを開く" onclick="hideAndShow()" />
 			<input id="open_and_close_sample_code" class="btn-square-above-look" type="button" value="サンプルコードを開く" onclick="hideAndShowSampleCode()" />
 		</div>
 
 		<div align="center">
-			<h1>まとめ編集モード</h1>
-			<a style="color:red;" href="./preview_editor_separate.html">
-				<h3>分割編集モードはこちら</h3>
+			<h1>分割編集モード</h1>
+			<a style="color:red;" href="./preview_editor_full.html">
+				<h3>まとめ編集モードはこちら</h3>
 			</a>
 		</div>
 
 		<div id="help" class="help">
-			<input style="float: right;" type="button" value="X" onclick="hideAndShowHelp()" />
+			<input style="float: right;" type="button" value="X" onclick="hideAndShow()" />
 			<br>
 
 			<h1 class="headDescription">ヘルプ</h1>
@@ -214,43 +219,47 @@
 			「Ctrl or Command」 + 「G」 を押すと、ハイライトされたキーワードを順に検索することができます。
 		</div>
 
-		<div id="sample_code" class="help">
-			<input style="float: right;" type="button" value="X" onclick="hideAndShowSampleCode()" />
-			<br>
-			<h1 class="headDescription">サンプルコード</h1>
-
-			<hr>
-
-			<b>- テーブルを作ってみよう</b><br>
-			こちらのソースコードをコピーしてエディターに貼ってみよう。
-			<br>
-			<input type="button" value="コピー" onclick="copyTextArea('sample_code_1')" class="btn-square-above-look">
-			<textarea id="sample_code_1" rows="15" cols="80" readonly><?php
-include("./sample_code/table.html");?></textarea>
-
-			<hr>
-
-			<b>- タイマーを作ってみよう</b><br>
-			こちらのソースコードをコピーしてエディターに貼ってみよう。
-			<br>
-			<input type="button" value="コピー" onclick="copyTextArea('sample_code_2')" class="btn-square-above-look">
-			<textarea id="sample_code_2" rows="15" cols="80" readonly><?php include("./sample_code/timer.html");?></textarea>
-
-			<hr>
-		</div>
-
 		<div class="editor">
-			<h1 class="headDescription">エディター</h1>
-			<input id="clear_editor" class="btn-square-above-look" type="button" value="すべてクリア" onclick="clearEditor()" />
-			<textarea id="editor_html" class="CodeMirror-empty" placeholder="HTMLを作成してください。" rows="30" cols="50"></textarea>
+			<h1 class="headDescription">HTML</h1>
+			<div class="sample_code">
+				サンプルコード
+				<input type="button" value="コピー" onclick="copyTextArea('sample_code_1')" class="btn-square-above-look">
+				<textarea id="sample_code_1" rows="15" cols="50" readonly><?php include("./sample_code/table_body.html");?></textarea>
+			</div>
+
+			<hr>
+
+			<textarea id="editor_html" class="CodeMirror-empty" placeholder="<body>タグの中身を作成してください。" rows="30" cols="50"></textarea>
+
+			<h1 class="headDescription">css</h1>
+			<div class="sample_code">
+				サンプルコード
+				<input type="button" value="コピー" onclick="copyTextArea('sample_code_2')" class="btn-square-above-look">
+				<textarea id="sample_code_2" rows="15" cols="50" readonly><?php include("./sample_code/table_style_sheet.css");?></textarea>
+			</div>
+
+			<hr>
+
+			<textarea id="editor_css" class="CodeMirror-empty" placeholder="スタイルシート(css)の中身を生成してください。" rows="30" cols="50"></textarea>
+
+			<h1 class="headDescription">javascript</h1>
+				<div class="sample_code">
+				サンプルコード
+				<input type="button" value="コピー" onclick="copyTextArea('sample_code_3')" class="btn-square-above-look">
+				<textarea id="sample_code_3" rows="15" cols="50" readonly><?php include("./sample_code/table_javascript.js");?></textarea>
+			</div>
+
+			<hr>
+
+			<textarea id="editor_js" class="CodeMirror-empty" placeholder="<script>タグの中身を作成してください。" rows="30" cols="50"></textarea>
 		</div>
 
 		<div class="preview">
 			<h1 class="headDescription">プレビュー</h1>
-			<input id="title_html" type="text" placeholder="保存するファイル名を入力してください" size="50">
+			<input id="title_html" type="text" placeholder="保存するファイル名（タイトル）を入力してください" size="60">
 			<input class="btn-square-above-look" type="button" value="ソースコードをダウンロード" onclick="downloadfile()">
 			<div id="livepreview">
-				<iframe id="livepreview_frame" width="100%" height="800px"></iframe>
+				<iframe id="livepreview_frame" width="100%" height="300px"></iframe>
 			</div>
 		</div>
 
@@ -258,29 +267,8 @@ include("./sample_code/table.html");?></textarea>
 			const INDENT_SIZE = 4;
 			const INDENT_SPACE = "\t";
 
-			var htmlInitForm =
-				'<!DOCTYPE html>\n' +
-				'<html lang="ja">\n' +
-				getSpaceByHierarchy(1) + '<head>\n' +
-				getSpaceByHierarchy(2) + '<meta charset="UTF-8">\n' +
-				getSpaceByHierarchy(2) + '<title>' + 'title' + '</title>\n' +
-				getSpaceByHierarchy(2) + '<style type="text/css">\n' +
-				getSpaceByHierarchy(3) + '/* cssを作成してください。 */\n' +
-				getSpaceByHierarchy(2) + '</style>\n' +
-				getSpaceByHierarchy(2) + '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.slim.min.js"><\/script>\n' +
-				getSpaceByHierarchy(1) + '</head>\n\n' +
-				getSpaceByHierarchy(1) + '<body>\n' +
-				getSpaceByHierarchy(2) + '<!-- bodyを作成してください。 -->\n' +
-				getSpaceByHierarchy(2) + '<a>Hello World!</a>\n' +
-				getSpaceByHierarchy(1) + '</body>\n\n' +
-				getSpaceByHierarchy(1) + '<script>\n' +
-				getSpaceByHierarchy(2) + '// javascriptを作成してください。\n' +
-				getSpaceByHierarchy(1) + '<\/script>\n' +
-				'</html>';
-			document.getElementById('editor_html').value = htmlInitForm;
-
 			var htmlEitor = CodeMirror.fromTextArea(document.getElementById('editor_html'), {
-				mode: 'htmlmixed',
+				mode: 'htmlmixed',
 				lineNumbers: true,
 				autofocus: true,
 				lineWrapping: false,
@@ -297,18 +285,75 @@ include("./sample_code/table.html");?></textarea>
 				matchTags: {
 					bothTags: true
 				},
-				extraKeys: {
-					"Ctrl-Space": "autocomplete",
-					"Cmd-Space": "autocomplete",
+				extraKeys: {
+					"Ctrl-Space": "autocomplete",
+					"Cmd-Space": "autocomplete",
 					"Ctrl-J": "toMatchingTag",
 					"Cmd-J": "toMatchingTag",
 				},
 				theme: 'material'
 			});
-			htmlEitor.setSize("100%", "800px");
+			htmlEitor.setSize("100%", "300px");
+
+			var jsEitor = CodeMirror.fromTextArea(document.getElementById('editor_js'), {
+				mode: 'javascript',
+				lineNumbers: true,
+				autofocus: false,
+				lineWrapping: false,
+				readOnly: false,
+				firstLineNumber: 1,
+				indentUnit: INDENT_SIZE,
+				tabSize: INDENT_SIZE,
+				indentWithTabs: true, // インデントの際、tabSize x N 個分のスペースが続いたら、それを N 個のタブに置き換えるかどうか。（デフォルト：false）
+				autoCloseBrackets: true,
+				autoCloseTags: true,
+				matchBrackets: true,
+				showTrailingSpace: true,
+				styleActiveLine: true,
+				matchTags: {
+					bothTags: true
+				},
+				extraKeys: {
+					"Ctrl-Space": "autocomplete",
+					"Cmd-Space": "autocomplete",
+					"Ctrl-J": "toMatchingTag",
+					"Cmd-J": "toMatchingTag",
+				},
+				theme: 'material'
+			});
+			jsEitor.setSize("100%", "300px");
+
+			var cssEitor = CodeMirror.fromTextArea(document.getElementById('editor_css'), {
+				mode: 'text/css',
+				lineNumbers: true,
+				autofocus: false,
+				lineWrapping: false,
+				readOnly: false,
+				firstLineNumber: 1,
+				indentUnit: INDENT_SIZE,
+				tabSize: INDENT_SIZE,
+				indentWithTabs: true, // インデントの際、tabSize x N 個分のスペースが続いたら、それを N 個のタブに置き換えるかどうか。（デフォルト：false）
+				autoCloseBrackets: true,
+				autoCloseTags: true,
+				matchBrackets: true,
+				showTrailingSpace: true,
+				styleActiveLine: true,
+				matchTags: {
+					bothTags: true
+				},
+				extraKeys: {
+					"Ctrl-Space": "autocomplete",
+					"Cmd-Space": "autocomplete",
+					"Ctrl-J": "toMatchingTag",
+					"Cmd-J": "toMatchingTag",
+				},
+				theme: 'material'
+			});
+			cssEitor.setSize("100%", "300px");
+
 
 			var sampleCode1 = CodeMirror.fromTextArea(document.getElementById('sample_code_1'), {
-				mode: 'htmlmixed',
+				mode: 'htmlmixed',
 				lineNumbers: true,
 				lineWrapping: false,
 				readOnly: true,
@@ -318,7 +363,7 @@ include("./sample_code/table.html");?></textarea>
 				matchTags: {
 					bothTags: true
 				},
-				extraKeys: {
+				extraKeys: {
 					"Ctrl-J": "toMatchingTag",
 					"Cmd-J": "toMatchingTag",
 				},
@@ -327,7 +372,7 @@ include("./sample_code/table.html");?></textarea>
 			sampleCode1.setSize("100%", "80px");
 
 			var sampleCode2 = CodeMirror.fromTextArea(document.getElementById('sample_code_2'), {
-				mode: 'htmlmixed',
+				mode: 'text/css',
 				lineNumbers: true,
 				lineWrapping: false,
 				readOnly: true,
@@ -337,7 +382,7 @@ include("./sample_code/table.html");?></textarea>
 				matchTags: {
 					bothTags: true
 				},
-				extraKeys: {
+				extraKeys: {
 					"Ctrl-J": "toMatchingTag",
 					"Cmd-J": "toMatchingTag",
 				},
@@ -345,8 +390,27 @@ include("./sample_code/table.html");?></textarea>
 			});
 			sampleCode2.setSize("100%", "80px");
 
+			var sampleCode3 = CodeMirror.fromTextArea(document.getElementById('sample_code_3'), {
+				mode: 'javascript',
+				lineNumbers: true,
+				lineWrapping: false,
+				readOnly: true,
+				matchBrackets: true,
+				showTrailingSpace: true,
+				styleActiveLine: true,
+				matchTags: {
+					bothTags: true
+				},
+				extraKeys: {
+					"Ctrl-J": "toMatchingTag",
+					"Cmd-J": "toMatchingTag",
+				},
+				theme: 'material'
+			});
+			sampleCode3.setSize("100%", "80px");
+
 			$(function() {
-				// JQuery
+			// JQuery
 				$('.editor').keyup(function(e) {
 					// textAreaに同期
 					updateTextArea();
@@ -356,8 +420,9 @@ include("./sample_code/table.html");?></textarea>
 					iframe.src = URL.createObjectURL(blob);
 				});
 
-				// ページ読み込み時に実行したい処理
-				$(document).ready(function() {
+				$('.preview').keyup(function(e) {
+					// textAreaに同期
+					updateTextArea();
 					// textAreaからプレビュー生成
 					var blob = createHtmlBlob();
 					var iframe = document.getElementById('livepreview_frame');
@@ -365,34 +430,64 @@ include("./sample_code/table.html");?></textarea>
 				});
 			});
 
-			function updateTextArea() {
+			function updateTextArea(){
 				// エディターの中身をtextAreaに同期させる。
 				htmlEitor.save();
+				jsEitor.save();
+				cssEitor.save();
 			}
 
-			function getSpaceByHierarchy(level) {
+			function getSpaceByHierarchy(level){
 				var space = "";
-				for (var i = 0; i < level; i++) {
+				for(var i=0; i<level; i++){
 					space += INDENT_SPACE;
 				}
 				return space;
 			}
 
-			function createHtmlBlob() {
-				//blobとしてhtmlファイルを生成
-				var html = document.getElementById("editor_html").value;
+			function createHtmlBlob(){
+				//各フォームの値を取得
+				var title = document.getElementById("title_html").value;
+				var htmlbody = document.getElementById("editor_html").value;
+				var javascript = document.getElementById("editor_js").value;
+				var css = document.getElementById("editor_css").value;
+
+				// すべての行に指定された階層のインデントを入れる
+				htmlbody = htmlbody.replace(/(^.*)/mg, getSpaceByHierarchy(2)+"$1");
+				javascript = javascript.replace(/(^.*)/mg, getSpaceByHierarchy(3)+"$1");
+				css = css.replace(/(^.*)/mg, getSpaceByHierarchy(3)+"$1");
+
+				// htmlの内容を変数に格納
+				var html =
+				'<!DOCTYPE html>\n' +
+				'<html lang="ja">\n' +
+				getSpaceByHierarchy(1) + '<head>\n' +
+				getSpaceByHierarchy(2) + '<meta charset="UTF-8">\n' +
+				getSpaceByHierarchy(2) +'<title>' + title + '</title>\n' +
+				getSpaceByHierarchy(2) +'<style type="text/css">\n' +
+				css + "\n" +
+				getSpaceByHierarchy(2) +'</style>\n' +
+				getSpaceByHierarchy(2) +'<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.slim.min.js"><\/script>\n' +
+				getSpaceByHierarchy(1) +'</head>\n\n' +
+				getSpaceByHierarchy(1) +'<body>\n' +
+				htmlbody + "\n\n" +
+				getSpaceByHierarchy(2) +'<script>\n' +
+				javascript + "\n" +
+				getSpaceByHierarchy(2) +'<\/script>\n' +
+				getSpaceByHierarchy(1) +'</body>\n' +
+				'</html>';
+
 				// 改行などによる余分なスペースを削除
 				html = html.replace(/^(\s)+$/mg, "");
 
-				var blob = new Blob([html], {
-					type: "text/html;"
-				});
+				//blobとしてhtmlファイルを生成
+				var blob = new Blob([html],{type: "text/html;"});
 
 				return blob;
 			}
 
-			function downloadfile() {
-				if (!confirm("作成したHTMLファイルをローカルにダウンロードしますか？")) return;
+			function downloadfile(){
+				if(!confirm("作成したHTMLファイルをローカルにダウンロードしますか？")) return;
 				var title = document.getElementById("title_html").value;
 				var blob = createHtmlBlob();
 
@@ -404,9 +499,8 @@ include("./sample_code/table.html");?></textarea>
 				a.click();
 			}
 
-
 			document.getElementById("help").style.display = "none";
-			function hideAndShowHelp() {
+			function hideAndShow() {
 				const help = document.getElementById("help");
 				if (help.style.display == "block") {
 					document.getElementById("open_and_close_help").value = "ヘルプを開く";
@@ -417,20 +511,25 @@ include("./sample_code/table.html");?></textarea>
 				}
 			}
 
-			document.getElementById("sample_code").style.display = "none";
+
+			const sample_code_class = document.getElementsByClassName("sample_code");
+			for(var i = 0; i < sample_code_class.length; i++){
+				sample_code_class[i].style.display = "none";
+			}
 			function hideAndShowSampleCode() {
-				const sample_code = document.getElementById("sample_code");
-				if (sample_code.style.display == "block") {
+				const sample_code_class = document.getElementsByClassName("sample_code");
+				if (sample_code_class[0].style.display == "block") {
 					document.getElementById("open_and_close_sample_code").value = "サンプルコードを開く";
-					sample_code.style.display = "none";
+					for(var i = 0; i < sample_code_class.length; i++){
+						sample_code_class[i].style.display = "none";
+					}
+
 				} else {
 					document.getElementById("open_and_close_sample_code").value = "サンプルコードを閉じる";
-					sample_code.style.display = "block";
+					for(var i = 0; i < sample_code_class.length; i++){
+						sample_code_class[i].style.display = "block";
+					}
 				}
-			}
-
-			function clearEditor(){
-				alert("まだ機能していません。\n「Command」+「A」キーですべて選択してから削除してください。");
 			}
 
 			function copyTextArea(targetId){
@@ -442,5 +541,6 @@ include("./sample_code/table.html");?></textarea>
 				alert("コピーしました！\nこのまま貼り付けができます。");
 			}
 		</script>
+
 	</body>
 </html>
